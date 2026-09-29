@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>클릭 상호작용 퀴즈</title>
+  <style>
+    .quiz-box {
+      margin-bottom: 20px;
+      padding: 15px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    .divA, .divB, .divC, .divD {
+      padding: 10px;
+      margin: 5px 0;
+      border: 1px solid #aaa;
+      background-color: white;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background-color 0.3s; 
+    }
+  </style>
+</head>
+<body>
+
+  <h1>인터넷 기초 퀴즈</h1>
+
+  <div class="quiz-box">
+    <p><strong>Q1. 웹 페이지의 뼈대와 구조를 만드는 마크업 언어는?</strong></p>
+    <div class="divA">① HTTP</div>
+    <div class="divB">② HTML</div>
+    <div class="divC">③ HTTPS</div>
+    <div class="divD">④ HTM</div>
+  </div>
+
+  <h3 id="result">보기를 클릭해 보세요!</h3>
+
+  <script>
+    let divA = document.getElementsByClassName('divA');
+    let divB = document.getElementsByClassName('divB');
+    let divC = document.getElementsByClassName('divC');
+    let divD = document.getElementsByClassName('divD');
+    let result = document.getElementById('result');
+
+    divA[0].addEventListener('click', function () {
+      divA[0].style.backgroundColor = "hotpink"; 
+      result.innerText = "①번(HTTP)을 선택하셨습니다. (오답)";
+    });
+
+    divB[0].addEventListener('click', function () {
+      divB[0].style.backgroundColor = "lightgreen"; 
+      result.innerText = "②번(HTML)을 선택하셨습니다. (정답!)";
+    });
+
+    divC[0].addEventListener('click', function () {
+      divC[0].style.backgroundColor = "hotpink";
+      result.innerText = "③번(HTTPS)을 선택하셨습니다. (오답)";
+    });
+
+    divD[0].addEventListener('click', function () {
+      divD[0].style.backgroundColor = "hotpink";
+      result.innerText = "④번(HTM)을 선택하셨습니다. (오답)";
+    });
+  </script>
+
+</body>
+</html>
