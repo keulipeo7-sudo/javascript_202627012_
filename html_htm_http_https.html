@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>웹 기초 상식 퀴즈</title>
+  <style>
+    body {
+      font-family: 'Pretendard', sans-serif;
+      max-width: 650px;
+      margin: 30px auto;
+      padding: 0 20px;
+      line-height: 1.6;
+      background-color: #f9f9f9;
+    }
+    .quiz-box {
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+    .quiz-title {
+      font-weight: bold;
+      font-size: 1.1rem;
+      margin-bottom: 12px;
+      color: #333;
+    }
+    .option {
+      padding: 10px 14px;
+      margin: 6px 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      background-color: #fff;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    .feedback {
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      display: none;
+    }
+    .submit-btn {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      font-size: 1rem;
+      font-weight: bold;
+      color: white;
+      background-color: #007bff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .submit-btn:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>웹 기초 상식 퀴즈</h1>
+  <p>배운 내용을 바탕으로 정답을 클릭해 보세요!</p>
+  <hr><br>
+
+  <div class="quiz-box" id="q1">
+    <div class="quiz-title">Q1. 다음 중 HTML과 HTM 확장자에 대한 설명으로 가장 올바른 것은 무엇일까요?</div>
+    <div class="option" onclick="selectOption('q1', 0, this)">① HTM은 HTML보다 최신에 개발된 고성능 확장자이다.</div>
+    <div class="option" onclick="selectOption('q1', 1, this)">② 과거 MS-DOS 등 운영체제의 확장자 3글자 제한 때문에 .htm이 사용되었으며, 둘의 기능상 차이는 없다.</div>
+    <div class="option" onclick="selectOption('q1', 2, this)">③ HTML은 암호화가 적용된 웹 문서이고, HTM은 암호화되지 않은 일반 웹 문서이다.</div>
+    <div class="option" onclick="selectOption('q1', 3, this)">④ 현대 웹 브라우저는 .htm 확장자로 작성된 파일은 읽을 수 없다.</div>
+    <div class="feedback" id="feedback-q1"></div>
+  </div>
+
+  <div class="quiz-box" id="q2">
+    <div class="quiz-title">Q2. HTTP와 HTTPS 통신 프로토콜의 차이점에 대한 설명으로 올바르지 않은 것은 무엇일까요?</div>
+    <div class="option" onclick="selectOption('q2', 0, this)">① HTTP는 기본 80번 포트를 사용하고, HTTPS는 기본 443번 포트를 사용한다.</div>
+    <div class="option" onclick="selectOption('q2', 1, this)">② HTTP는 데이터를 평문(Plain Text)으로 보내지만, HTTPS는 SSL/TLS를 통해 암호화하여 전송한다.</div>
+    <div class="option" onclick="selectOption('q2', 2, this)">③ HTTPS는 디지털 인증서를 통해 접속하려는 서버의 신원을 검증할 수 있다.</div>
+    <div class="option" onclick="selectOption('q2', 3, this)">④ HTTP는 암호화 기술이 적용되어 있어 인터넷 쇼핑몰 결제 시 주로 사용된다.</div>
+    <div class="feedback" id="feedback-q2"></div>
+  </div>
+
+  <div class="quiz-box" id="q3">
+    <div class="quiz-title">Q3. 데이터 전송 시 SSL/TLS 보안 계층을 활용하여 암호화를 수행하고, 기본 443번 포트를 사용하여 현대 인터넷 서비스와 결제 시스템의 필수 표준이 된 웹 통신 규약은 무엇일까요?</div>
+    <div class="option" onclick="selectOption('q3', 0, this)">① HTML</div>
+    <div class="option" onclick="selectOption('q3', 1, this)">② HTM</div>
+    <div class="option" onclick="selectOption('q3', 2, this)">③ HTTP</div>
+    <div class="option" onclick="selectOption('q3', 3, this)">④ HTTPS</div>
+    <div class="feedback" id="feedback-q3"></div>
+  </div>
+
+  <button class="submit-btn" onclick="checkAnswers()">정답 확인하기</button>
+
+  <script>
+    const answers = { q1: 1, q2: 3, q3: 3 };
+
+    const explanations = {
+      q1: "정답은 ②번입니다! 과거 MS-DOS 시절 3글자 확장자 제한 때문에 .htm이 사용되었으며, 기능적으로는 .html과 100% 동일합니다.",
+      q2: "정답은 ④번입니다! HTTP는 암호화가 되지 않아 개인정보나 결제 정보를 송수신하기에 위험합니다.",
+      q3: "정답은 ④ HTTPS입니다! 기존 HTTP에 SSL/TLS 보안 계층을 추가하여 데이터를 안전하게 암호화합니다."
+    };
+
+    let userSelections = { q1: null, q2: null, q3: null };
+
+    function selectOption(questionId, optionIdx, element) {
+      userSelections[questionId] = optionIdx;
+
+      let options = document.querySelectorAll(`#${questionId} .option`);
+      options.forEach(opt => opt.style.backgroundColor = '#fff');
+      element.style.backgroundColor = 'hotpink';
+    }
+
+    function checkAnswers() {
+      if (userSelections.q1 === null || userSelections.q2 === null || userSelections.q3 === null) {
+        alert("모든 문제의 답을 선택해 주세요!");
+        return;
+      }
+
+      for (let q in answers) {
+        let feedbackEl = document.getElementById(`feedback-${q}`);
+        feedbackEl.style.display = 'block';
+
+        if (userSelections[q] === answers[q]) {
+          feedbackEl.style.backgroundColor = '#e8f8f0';
+          feedbackEl.style.color = '#1e7e44';
+          feedbackEl.innerHTML = `<strong>정답입니다!</strong><br>${explanations[q]}`;
+        } else {
+          feedbackEl.style.backgroundColor = '#fde8e8';
+          feedbackEl.style.color = '#a93226';
+          feedbackEl.innerHTML = `<strong>오답입니다.</strong><br>${explanations[q]}`;
+        }
+      }
+    }
+  </script>
+
+</body>
+</html>
